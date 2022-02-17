@@ -1,11 +1,11 @@
 function inputAmount(inputId){
     const input = document.getElementById(inputId);
-    const amount = parseFloat(input.value);
+    const amount = parseInt(input.value);
     return amount;
 }
 
 // get valur from input
-function getValau(){
+function getValue(){
     //income
     const income = inputAmount('income-field');
     // const incomeField = document.getElementById('income-field');
@@ -20,12 +20,11 @@ function getValau(){
     const clothes = inputAmount('clothes-field');
     // const clothesField = document.getElementById('clothes-field');
     // const clothes = parseFloat(clothesField.value);
-
     const totalExpense = document.getElementById('total-expense');
-    totalExpense.innerText  = food + rent + clothes;
     const balance = document.getElementById('Balance');
-    balance.innerText = income - totalExpense.innerText;
-    if(income > totalExpense.innerText){
+    // balance.innerText = income - totalExpense.innerText;
+    if(income >= totalExpense.innerText){  
+        
         balance.innerText = income - totalExpense.innerText;
     }
     else{
@@ -33,6 +32,27 @@ function getValau(){
     }
 }
 
+// balance function
+function balance(){
+    const income = inputAmount('income-field');
+    // Expenses
+    const food = inputAmount('food-field');
+    const rent = inputAmount('rent-field');
+    const clothes = inputAmount('clothes-field');
+    const totalExpense = document.getElementById('total-expense');
+    totalExpense.innerText  = food + rent + clothes;
+    const balance = document.getElementById('Balance');
+    const lastBalance = income - totalExpense.innerText;
+    balance.innerText = lastBalance;
+    if(income > totalExpense.innerText){
+        balance.innerText = lastBalance;
+    }
+    else{
+        alert('Invalid Income Amount');
+    }
+    return lastBalance;
+
+}
 // save function
 function saveButton(){
     const income = inputAmount('income-field');
@@ -40,23 +60,27 @@ function saveButton(){
     const percentAmount = parseInt(percentValue.value);
     const SavingsInput = document.getElementById('saving-amount');
     const remainingBalance = document.getElementById('remaining-balance');
-    if(percentAmount > 0){
+    if((percentAmount > 0)&&(percentAmount < 100)){
         const savings = income * (percentAmount / 100);
         SavingsInput.innerText = savings;
     }
-    else{
+    else {
         alert('Invalid percentage amount')
     }
-   
+    const balance = balance();
+    remainingBalance.innerText = parseInt(balance) - savings;
+
 }
 
 // calculation button
 document.getElementById('calculation-field').addEventListener('click',function(){
-    getValau(); 
+    getValue(); 
 })
 
 // save button
 
 document.getElementById('button-save').addEventListener('click',function(){
+    
     saveButton();
+
 })
