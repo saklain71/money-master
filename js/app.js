@@ -33,9 +33,30 @@ function getValau(){
     }
 }
 
+// save function
+function saveButton(){
+    const income = inputAmount('income-field');
+    const percentValue = document.getElementById('parcent-input');
+    const percentAmount = parseInt(percentValue.value);
+    const SavingsInput = document.getElementById('saving-amount');
+    const remainingBalance = document.getElementById('remaining-balance');
+    if(percentAmount > 0){
+        const savings = income * (percentAmount / 100);
+        SavingsInput.innerText = savings;
+    }
+    else{
+        alert('Invalid percentage amount')
+    }
+   
+}
+
 // calculation button
 document.getElementById('calculation-field').addEventListener('click',function(){
+    getValau(); 
+})
 
-    getValau();
-    
+// save button
+
+document.getElementById('button-save').addEventListener('click',function(){
+    saveButton();
 })
